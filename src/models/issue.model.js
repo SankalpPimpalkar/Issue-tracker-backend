@@ -6,7 +6,7 @@ const issueSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    title: {
+    description: {
         type: String,
         trim: true
     },
