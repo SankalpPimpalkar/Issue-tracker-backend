@@ -1,0 +1,34 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/SankalpPimpalkar/Issue-tracker-backend#readme",
+  "bugs": {
+    "url": "https://github.com/SankalpPimpalkar/Issue-tracker-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SankalpPimpalkar/Issue-tracker-backend.git"
+  },
+  "license": "ISC",
+  "author": "Sankalp Pimpalkar",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=DEV nodemon ./index.js",
+    "prod": "NODE_ENV=PRODUCTION nodemon ./index.js",
+    "release": "NODE_ENV=RELEASE nodemon ./index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.15.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
