@@ -16,6 +16,6 @@ switch (process.env.NODE_ENV) {
 dotenv.config({ path: ENV_URL });
 
 export const NODE = process.env.NODE
-export const PORT = process.env.PORT
+export const PORT = process.env.PORT || 3000
 export const MONGO_URL = process.env.MONGO_URL
 export const JWT_SECRET = process.env.JWT_SECRET
