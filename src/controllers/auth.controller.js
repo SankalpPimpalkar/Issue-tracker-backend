@@ -1,12 +1,12 @@
-import { JWT_SECRET } from "../../constants.js";
+import { JWT_SECRET, NODE } from "../../constants.js";
 import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 const cookieOptions = {
     httpOnly: true,
-    secure: true,
-    sameSite: "strict",
+    secure: NODE == "PROD",
+    sameSite: "Lax",
     maxAge: 3600000,
 }
 
@@ -14,6 +14,7 @@ export async function RegisterUser(req, res) {
     try {
 
         const { username, email, password } = req.body;
+        console.log(req.body)
 
         const existingUser = await User.findOne({
             $or: [{ email }, { username }]
@@ -60,10 +61,13 @@ export async function LoginUser(req, res) {
     try {
 
         const { username, email, password } = req.body;
+        console.log(cookieOptions)
 
         const user = await User.findOne({
             $or: [{ email }, { username }]
         })
+
+        console.log(user)
 
 
         if (!user) {
@@ -124,6 +128,41 @@ export async function GetCurrentUser(req, res) {
 
     } catch (error) {
         console.log("Failed to Get Current User", error.message)
+        return res
+            .status(500)
+            .json({
+                error: "Internal Server Error",
+                message: error.message,
+                success: false
+            })
+    }
+}
+
+export async function IsUserNameExists(req, res) {
+    try {
+
+        const { username } = req.params;
+
+        const existingUserWithUsername = await User.findOne({ username })
+
+        if(existingUserWithUsername){
+            return res
+            .status(200)
+            .json({
+                error: "Username already taken",
+                success: false
+            })
+        }
+
+        return res
+            .status(200)
+            .json({
+                message: "Username is available",
+                success: true
+            })
+
+    } catch (error) {
+        console.log("Failed to Check Username", error.message)
         return res
             .status(500)
             .json({
